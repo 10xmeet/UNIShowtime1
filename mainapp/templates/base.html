@@ -627,12 +627,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             const popup = document.getElementById('suggestion-popup');
             const closeButton = document.getElementById('close-popup');
-            const notificationSound = document.getElementById('notification-sound');
 
             setTimeout(() => {
                 popup.classList.remove('hidden');
                 popup.classList.add('show');
-                // notificationSound.play();
             }, 2000);
 
             closeButton.addEventListener('click', () => {
