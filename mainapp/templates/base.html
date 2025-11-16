@@ -628,10 +628,13 @@
             const popup = document.getElementById('suggestion-popup');
             const closeButton = document.getElementById('close-popup');
 
-            setTimeout(() => {
-                popup.classList.remove('hidden');
-                popup.classList.add('show');
-            }, 2000);
+            if (!localStorage.getItem('popupShown')) {
+                setTimeout(() => {
+                    popup.classList.remove('hidden');
+                    popup.classList.add('show');
+                    localStorage.setItem('popupShown', 'true');
+                }, 2000);
+            }
 
             closeButton.addEventListener('click', () => {
                 popup.classList.remove('show');
