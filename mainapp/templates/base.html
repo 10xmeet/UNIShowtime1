@@ -627,17 +627,41 @@
         document.addEventListener('DOMContentLoaded', function() {
             const popup = document.getElementById('suggestion-popup');
             const closeButton = document.getElementById('close-popup');
+            const openButton = document.getElementById('open-popup-button');
+            const twoMinutes = 2 * 60 * 1000; // 2 minutes in milliseconds
 
-            if (!localStorage.getItem('popupShown')) {
+            function showPopup() {
+                popup.classList.remove('hidden');
+                popup.classList.add('show');
+                openButton.classList.add('hidden');
+            }
+
+            function hidePopup() {
+                popup.classList.remove('show');
+                popup.classList.add('hidden');
+                openButton.classList.remove('hidden');
+            }
+
+            // Check if popup was shown recently
+            const lastShown = localStorage.getItem('lastPopupShown');
+            if (!lastShown || (Date.now() - lastShown > twoMinutes)) {
                 setTimeout(() => {
-                    popup.classList.remove('hidden');
-                    popup.classList.add('show');
-                    localStorage.setItem('popupShown', 'true');
-                }, 2000);
+                    showPopup();
+                    localStorage.setItem('lastPopupShown', Date.now());
+                }, 2000); // Initial delay of 2 seconds
+            } else {
+                // If popup was shown recently, ensure open button is visible if popup is not
+                if (popup.classList.contains('hidden')) {
+                    openButton.classList.remove('hidden');
+                }
             }
 
             closeButton.addEventListener('click', () => {
-                popup.classList.remove('show');
+                hidePopup();
+            });
+
+            openButton.addEventListener('click', () => {
+                showPopup();
             });
         });
     </script>
@@ -731,6 +755,13 @@
                 <p class="text-sm text-gray-300">Have a Suggestion for an Event ? Share your idea via Suggest Event page!!!</p>
                 <a href="/suggest-event/" class="mt-2 inline-block bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600">Suggest Event</a>
             </div>
+        </div>
+    </div>
+
+    <!-- Open Popup Button -->
+    <button id="open-popup-button" class="hidden fixed bottom-5 right-5 bg-gray-800/80 backdrop-blur-md rounded-full shadow-lg p-3 text-white text-lg hover:bg-gray-700/80 focus:outline-none">
+        <
+    </button>            </div>
         </div>
     </div>
 </body>

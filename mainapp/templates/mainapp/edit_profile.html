@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Edit Profile{% endblock %}
 
@@ -51,13 +52,14 @@
                             <img src="{{ user.profile_image.url }}" alt="Current Profile Image" class="w-32 h-32 object-cover rounded-full border-2 border-#547792">
                             <p class="text-gray-300 text-sm mt-2">Current profile picture</p>
                         </div>
+
                         {% else %}
                         <div class="mb-4">
                             <img src="{% static 'images/default_profile.svg' %}" alt="Default Profile Image" class="w-32 h-32 object-cover rounded-full border-2 border-#547792">
                             <p class="text-gray-300 text-sm mt-2">Default profile picture</p>
                         </div>
+
                         {% endif %}
-                        <input type="file" name="profile_image" id="id_profile_image" class="w-full px-4 py-2 rounded-md bg-#394867 border border-#547792 text-gray-400 focus:outline-none focus:ring-2 focus:ring-#94B4C1">
                     </div>
                 </div>
                 
