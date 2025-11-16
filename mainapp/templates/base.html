@@ -615,6 +615,31 @@
             });
         });
     </script>
+    <style>
+        #suggestion-popup {
+            transition: transform 0.5s ease-in-out;
+        }
+        #suggestion-popup.show {
+            transform: translateX(0);
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('suggestion-popup');
+            const closeButton = document.getElementById('close-popup');
+            const notificationSound = document.getElementById('notification-sound');
+
+            setTimeout(() => {
+                popup.classList.remove('hidden');
+                popup.classList.add('show');
+                // notificationSound.play();
+            }, 2000);
+
+            closeButton.addEventListener('click', () => {
+                popup.classList.remove('show');
+            });
+        });
+    </script>
 </head>
 <body>
     <!-- Enhanced Background -->
@@ -695,5 +720,18 @@
         </div>
         <div class="mt-6 text-center text-gray-500 text-sm">© 2025 UniShowTime. All Rights Reserved.</div>
     </footer>
+
+    <!-- Suggestion Popup -->
+    <div id="suggestion-popup" class="hidden fixed bottom-5 right-5 w-80 bg-gray-800/80 backdrop-blur-md rounded-lg shadow-lg p-4 border border-gray-700/50 transform translate-x-full transition-transform duration-500 ease-in-out">
+        <button id="close-popup" class="absolute top-2 right-2 text-gray-400 hover:text-white">&times;</button>
+        <div class="flex items-center">
+            <img src="/media/1667878456_697435_gif-url.gif" alt="Suggestion" class="w-16 h-16 mr-4">
+            <div>
+                <p class="text-sm text-gray-300">Have a Suggestion for an Event ? Share your idea via Suggest Event page!!!</p>
+                <a href="/suggest-event/" class="mt-2 inline-block bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600">Suggest Event</a>
+            </div>
+        </div>
+    </div>
+    <audio id="notification-sound" src=""></audio>
 </body>
 </html>

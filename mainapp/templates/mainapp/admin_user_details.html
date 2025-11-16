@@ -8,7 +8,11 @@
         <!-- User Profile Section -->
         <div class="flex items-center mb-6 space-x-6">
             <div class="w-24 h-24 bg-[#394867] rounded-full overflow-hidden">
+                {% if user.profile_image %}
                 <img src="{{ user.profile_image.url }}" alt="Profile Picture" class="w-full h-full object-cover">
+                {% else %}
+                <img src="{% static 'images/default_profile.svg' %}" alt="Default Profile" class="w-full h-full object-cover">
+                {% endif %}
             </div>
             <div>
                 <h3 class="text-xl font-semibold text-[#94B4C1]">{{ user.username }}</h3>

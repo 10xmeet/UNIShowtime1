@@ -7,10 +7,9 @@
             <div class="flex items-center space-x-4">
                 {% if user.profile_image %}
                 <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="w-24 h-24 rounded-full object-cover">
+
                 {% else %}
-                <div class="w-24 h-24 rounded-full bg-[#212A3E] flex items-center justify-center">
-                    <i class="fas fa-user text-4xl text-[#9BA4B5]"></i>
-                </div>
+                <img src="{% static 'images/default_profile.svg' %}" alt="Default Profile" class="w-24 h-24 rounded-full object-cover">
                 {% endif %}
                 <div>
                     <h1 class="text-3xl font-bold text-[#F1F6F9]">{{ user.username }}</h1>

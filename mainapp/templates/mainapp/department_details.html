@@ -81,9 +81,7 @@
                                                 {% if user.profile_image %}
                                                     <img src="{{ user.profile_image.url }}" alt="{{ user.username }}" class="w-10 h-10 rounded-full object-cover border-2 border-#547792/50">
                                                 {% else %}
-                                                    <div class="w-10 h-10 rounded-full bg-#547792 flex items-center justify-center text-sm font-bold shadow-md">
-                                                        {{ user.username|make_list|first|upper }}
-                                                    </div>
+                                                    <img src="{% static 'images/default_profile.svg' %}" alt="Default Profile" class="w-10 h-10 rounded-full object-cover border-2 border-#547792/50">
                                                 {% endif %}
                                                 <span>{{ user.username }}</span>
                                             </div>

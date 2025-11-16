@@ -10,6 +10,7 @@ urlpatterns = [
     # Filter endpoints
     path('filter-events/', views.filter_events, name='filter_events'),
     path('filter-users/', views.filter_users, name='filter_users'),
+    path('events/', views.events, name='events'),
     path('approve-event/<int:event_id>/', approve_event, name='approve_event'),
     path('reject-event/<int:event_id>/', reject_event, name='reject_event'),
     path('', home_redirect),

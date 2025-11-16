@@ -2,11 +2,19 @@
 {% load static %}
 {% block title %}Student Dashboard{% endblock %}
 {% block content %}
+<!-- Full-page concert background layer -->
+<div id="concert-bg" data-events="{{ upcoming_events|length }}" class="pointer-events-none fixed inset-0 -z-10">
+    <video id="bg-video" class="bg-video" autoplay muted loop playsinline preload="auto">
+        <source src="/media/vecteezy_real-fireworks-explosion-motion-graphics-4k-on-black-smoke_4794785.mov" type="video/quicktime" />
+    </video>
+</div>
+
 <div class="min-h-screen  py-12 px-4">
     <!-- Profile Section with Glass Morphism -->
     <div class="container mx-auto max-w-6xl">
         <div class="mb-10 rounded-2xl overflow-hidden shadow-2xl relative bg-white/5 backdrop-blur-lg border border-white/10"
              data-aos="fade-up" data-aos-duration="1000">
+            
             <!-- Neon top border -->
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 animate-gradient-x"></div>
 
@@ -24,7 +32,7 @@
                             {% if user.profile_image %}
                             <img src="{{ user.profile_image.url }}" alt="Profile Image" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-110">
                             {% else %}
-                            <img src="{% static 'images/default_profile.png' %}" alt="Default Profile Image" class="w-full h-full object-cover">
+                            <img src="{% static 'images/default_profile.svg' %}" alt="Default Profile Image" class="w-full h-full object-cover">
                             {% endif %}
                             <div class="absolute inset-0 bg-gradient-to-tr from-indigo-600/20 to-purple-600/20 backdrop-filter backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
@@ -253,6 +261,67 @@
         </form>
     </div>
 </div>
+
+<!-- Anime.js and dashboard animation script -->
+<style>
+  /* Notes and spotlights styling */
+  body { background: transparent; }
+  #concert-bg { overflow: hidden; background: rgba(0,0,0,0.3); }
+  .note {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    color: #c7d2fe;
+    opacity: 0.85;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+  }
+  .spotlight {
+    position: absolute;
+    width: 180px;
+    height: 300px;
+    background: radial-gradient(ellipse at top, rgba(99,102,241,0.35), rgba(99,102,241,0.15) 40%, transparent 70%);
+    transform-origin: top center;
+    mix-blend-mode: screen;
+    opacity: 0.5;
+  }
+  /* Background video covering the container */
+  .bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.45;
+    filter: saturate(1.1) brightness(0.9);
+    will-change: transform, opacity;
+  }
+  /* Equalizer bars at the bottom */
+  .eq-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 64px;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    padding: 0 12px 8px;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+  .eq-bar {
+    flex: 1 1 8px;
+    max-width: 16px;
+    height: 18px;
+    background: linear-gradient(180deg, rgba(99,102,241,0.8), rgba(168,85,247,0.6));
+    border-radius: 4px 4px 0 0;
+    transform-origin: bottom;
+    opacity: 0.55;
+    box-shadow: 0 6px 18px rgba(79,70,229,0.35);
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-9i+YzS2H4vKfx3D6CkJf3P+eXz+QbI7ZQmYxTgU7xwW2eEwQ3U1lHjZ2S6o6oQ3eU3K2QyJQ6cQv0M0KpWw2qA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/dashboard-animations.js' %}"></script>
 
 {% block extra_js %}
 <script>

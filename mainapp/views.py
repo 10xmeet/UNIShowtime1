@@ -117,6 +117,26 @@ from django.utils import timezone
 from .forms import EventMemoryForm
 
 @login_required
+def events(request):
+    # Public browse page for approved events
+    query = request.GET.get('q', '').strip()
+    category = request.GET.get('category')
+    events_qs = (
+        Event.objects.exclude(date__isnull=True, location__isnull=True)
+        .order_by('date')
+    )
+    if query:
+        events_qs = events_qs.filter(title__icontains=query)
+    if category:
+        events_qs = events_qs.filter(category=category)
+
+    return render(request, 'mainapp/events.html', {
+        'events': events_qs,
+        'search': query,
+        'category': category,
+    })
+
+@login_required
 def superadmin_dashboard(request):
     if request.user.role != 'superadmin':
         return redirect('dashboard')

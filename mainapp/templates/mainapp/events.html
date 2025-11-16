@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Browse Events{% endblock %}
+{% block content %}
+<div class="min-h-screen py-12 px-4">
+  <div class="container mx-auto max-w-6xl mb-8">
+    <h1 class="text-3xl font-bold text-white mb-6">Browse Events</h1>
+    <form method="get" class="flex gap-3 mb-6">
+      <input type="text" name="q" value="{{ search }}" placeholder="Search events..." class="px-3 py-2 rounded bg-white/10 text-white border border-white/10 w-full" />
+      <select name="category" class="px-3 py-2 rounded bg-white/10 text-white border border-white/10">
+        <option value="">All Categories</option>
+        <option value="tech" {% if category == 'tech' %}selected{% endif %}>Tech</option>
+        <option value="business" {% if category == 'business' %}selected{% endif %}>Business</option>
+        <option value="workshop" {% if category == 'workshop' %}selected{% endif %}>Workshop</option>
+      </select>
+      <button type="submit" class="px-4 py-2 rounded bg-gradient-to-r from-blue-400 to-blue-500 text-white">Filter</button>
+    </form>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for event in events %}
+      <div class="bg-white/5 backdrop-blur-lg rounded-xl overflow-hidden shadow-xl border border-white/10">
+        {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-40 object-cover">
+        {% endif %}
+        <div class="p-5">
+          <h3 class="text-xl font-bold text-white">{{ event.title }}</h3>
+          <p class="text-gray-300 text-sm mb-3">{{ event.description|truncatechars:120 }}</p>
+          <div class="flex items-center text-indigo-300 mb-4">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <span>{{ event.date|date:"F j, Y" }} at {{ event.time|time:"g:i A" }}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-400">{{ event.location }}</span>
+            <a href="{% url 'event_details' event.id %}" class="px-3 py-2 rounded bg-gradient-to-r from-blue-400 to-blue-500 text-white">View Details</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-span-full p-8 rounded-lg bg-white/5 border border-white/10 text-center">
+        <p class="text-gray-300">No events found. Try adjusting filters.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
