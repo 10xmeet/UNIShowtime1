@@ -73,6 +73,8 @@ def dashboard_view(request):
         return redirect('student_dashboard')
     elif user.role == 'admin':
         return redirect('admin_dashboard')
+    elif user.role == 'teacher':
+        return redirect('admin_dashboard')
     elif user.role == 'superadmin':
         return redirect('superadmin_dashboard')
 
@@ -157,7 +159,7 @@ def superadmin_dashboard(request):
     return render(request, 'dashboard/superadmin_dashboard.html', context)
 
 def admin_dashboard(request):
-    if request.user.role not in ['teacher', 'superadmin']:
+    if request.user.role not in ['teacher', 'superadmin', 'admin']:
         return redirect('dashboard')
         
     # Apply filters
