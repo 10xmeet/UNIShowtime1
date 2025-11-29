@@ -139,7 +139,6 @@ If you want to customize styles:
 python manage.py tailwind install
 python manage.py tailwind start
 ```
-
 ---
 
 ## 📂 Project Structure
